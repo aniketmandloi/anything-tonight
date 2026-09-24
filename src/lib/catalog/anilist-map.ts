@@ -9,7 +9,8 @@ const LANGUAGE_BY_COUNTRY: Record<string, string> = { JP: "ja", KR: "ko", CN: "z
 
 const ENTITIES: Record<string, string> = { "&amp;": "&", "&quot;": '"', "&#039;": "'", "&lt;": "<", "&gt;": ">" };
 
-// AniList descriptions are light HTML even with asHtml: false, and often end with a "(Source: X)" credit.
+// AniList descriptions are light HTML even with asHtml: false, and often end with a "(Source: X)"
+// credit and/or "Note:" airing trivia; neither belongs in the synopsis.
 export function cleanDescription(html: string | null | undefined): string | null {
   if (!html) return null;
   const text = html
@@ -17,7 +18,8 @@ export function cleanDescription(html: string | null | undefined): string | null
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, "")
     .replace(/&(amp|quot|#039|lt|gt);/g, (e) => ENTITIES[e])
-    .replace(/\n*\s*\((Source|Sources):[^)]*\)\s*$/i, "")
+    .replace(/\s*\(Sources?:[^)]*\)[\s\S]*$/i, "")
+    .replace(/\n\s*Notes?:[\s\S]*$/i, "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
   return text || null;

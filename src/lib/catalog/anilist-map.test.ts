@@ -62,6 +62,13 @@ describe("cleanDescription", () => {
     expect(text).not.toMatch(/<br>|Source:|\r/);
   });
 
+  it("drops airing notes after or without a source credit", () => {
+    expect(cleanDescription("Plot.<br><br>\n(Source: Crunchyroll) <br><br>\nNotes:<br>\n- Ep 1 aired early")).toBe(
+      "Plot.",
+    );
+    expect(cleanDescription("Plot.<br><br>\nNote: The last episode aired late.")).toBe("Plot.");
+  });
+
   it("strips other tags and decodes entities", () => {
     expect(cleanDescription("<i>Tom &amp; Jerry</i> &quot;run&quot;<br>")).toBe('Tom & Jerry "run"');
     expect(cleanDescription("")).toBeNull();
