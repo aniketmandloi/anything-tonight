@@ -1,0 +1,666 @@
+{
+  "data": {
+    "Page": {
+      "pageInfo": {
+        "currentPage": 1,
+        "hasNextPage": true
+      },
+      "media": [
+        {
+          "id": 16498,
+          "idMal": 16498,
+          "title": {
+            "romaji": "Shingeki no Kyojin",
+            "english": "Attack on Titan",
+            "native": "進撃の巨人"
+          },
+          "format": "TV",
+          "status": "FINISHED",
+          "description": "Several hundred years ago, humans were nearly exterminated by titans. Titans are typically several stories tall, seem to have no intelligence, devour human beings and, worst of all, seem to do it for the pleasure rather than as a food source. A small percentage of humanity survived by walling themselves in a city protected by extremely high walls, even taller than the biggest of titans.<br><br>\r\nFlash forward to the present and the city has not seen a titan in over 100 years. Teenage boy Eren and his foster sister Mikasa witness something horrific as the city walls are destroyed by a colossal titan that appears out of thin air. As the smaller titans flood the city, the two kids watch in horror as their mother is eaten alive. Eren vows that he will murder every single titan and take revenge for all of mankind.<br><br>\r\n(Source: MangaHelpers)",
+          "startDate": {
+            "year": 2013,
+            "month": 4,
+            "day": 7
+          },
+          "seasonYear": 2013,
+          "episodes": 25,
+          "duration": 24,
+          "countryOfOrigin": "JP",
+          "genres": [
+            "Action",
+            "Drama",
+            "Fantasy",
+            "Mystery"
+          ],
+          "tags": [
+            {
+              "name": "Kaiju",
+              "rank": 93,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Revenge",
+              "rank": 93,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Tragedy",
+              "rank": 89,
+              "isGeneralSpoiler": true,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Military",
+              "rank": 88,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Henshin",
+              "rank": 88,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Male Protagonist",
+              "rank": 86,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Primarily Teen Cast",
+              "rank": 86,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Survival",
+              "rank": 84,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Post-Apocalyptic",
+              "rank": 84,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Super Power",
+              "rank": 81,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Dystopian",
+              "rank": 77,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Steampunk",
+              "rank": 77,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Memory Manipulation",
+              "rank": 77,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Gore",
+              "rank": 77,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Ensemble Cast",
+              "rank": 74,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Swordplay",
+              "rank": 74,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Kuudere",
+              "rank": 70,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Cannibalism",
+              "rank": 69,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Espionage",
+              "rank": 68,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Orphan",
+              "rank": 67,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Shounen",
+              "rank": 63,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Coming of Age",
+              "rank": 60,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Amnesia",
+              "rank": 60,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Medieval",
+              "rank": 60,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Time Skip",
+              "rank": 60,
+              "isGeneralSpoiler": true,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Suicide",
+              "rank": 55,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": true
+            },
+            {
+              "name": "Rural",
+              "rank": 50,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Primarily Male Cast",
+              "rank": 33,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Adoption",
+              "rank": 31,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            }
+          ],
+          "averageScore": 85,
+          "popularity": 1058032,
+          "isAdult": false,
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg"
+          },
+          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/16498-8jpFCOcDmneX.jpg",
+          "updatedAt": 1790277364,
+          "relations": {
+            "edges": [
+              {
+                "relationType": "ADAPTATION",
+                "node": {
+                  "id": 53390,
+                  "type": "MANGA"
+                }
+              },
+              {
+                "relationType": "ALTERNATIVE",
+                "node": {
+                  "id": 20691,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "ALTERNATIVE",
+                "node": {
+                  "id": 20692,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SEQUEL",
+                "node": {
+                  "id": 20958,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SPIN_OFF",
+                "node": {
+                  "id": 21281,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SIDE_STORY",
+                "node": {
+                  "id": 18397,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SUMMARY",
+                "node": {
+                  "id": 119113,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "PREQUEL",
+                "node": {
+                  "id": 20811,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SIDE_STORY",
+                "node": {
+                  "id": 99634,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "OTHER",
+                "node": {
+                  "id": 19391,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "CHARACTER",
+                "node": {
+                  "id": 143391,
+                  "type": "ANIME"
+                }
+              }
+            ]
+          },
+          "recommendations": {
+            "nodes": [
+              {
+                "rating": 2876,
+                "mediaRecommendation": {
+                  "id": 101348
+                }
+              },
+              {
+                "rating": 699,
+                "mediaRecommendation": {
+                  "id": 101759
+                }
+              },
+              {
+                "rating": 366,
+                "mediaRecommendation": {
+                  "id": 116589
+                }
+              },
+              {
+                "rating": 365,
+                "mediaRecommendation": {
+                  "id": 21196
+                }
+              },
+              {
+                "rating": 210,
+                "mediaRecommendation": {
+                  "id": 20829
+                }
+              },
+              {
+                "rating": 197,
+                "mediaRecommendation": {
+                  "id": 131586
+                }
+              },
+              {
+                "rating": 170,
+                "mediaRecommendation": {
+                  "id": 153288
+                }
+              },
+              {
+                "rating": 116,
+                "mediaRecommendation": {
+                  "id": 5114
+                }
+              },
+              {
+                "rating": 107,
+                "mediaRecommendation": {
+                  "id": 110353
+                }
+              },
+              {
+                "rating": 101,
+                "mediaRecommendation": {
+                  "id": 20623
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 101922,
+          "idMal": 38000,
+          "title": {
+            "romaji": "Kimetsu no Yaiba",
+            "english": "Demon Slayer: Kimetsu no Yaiba",
+            "native": "鬼滅の刃"
+          },
+          "format": "TV",
+          "status": "FINISHED",
+          "description": "It is the Taisho Period in Japan. Tanjiro, a kindhearted boy who sells charcoal for a living, finds his family slaughtered by a demon. To make matters worse, his younger sister Nezuko, the sole survivor, has been transformed into a demon herself. Though devastated by this grim reality, Tanjiro resolves to become a “demon slayer” so that he can turn his sister back into a human, and kill the demon that massacred his family.<br>\n<br>\n(Source: Crunchyroll)",
+          "startDate": {
+            "year": 2019,
+            "month": 4,
+            "day": 6
+          },
+          "seasonYear": 2019,
+          "episodes": 26,
+          "duration": 24,
+          "countryOfOrigin": "JP",
+          "genres": [
+            "Action",
+            "Adventure",
+            "Drama",
+            "Fantasy",
+            "Supernatural"
+          ],
+          "tags": [
+            {
+              "name": "Demons",
+              "rank": 96,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Shounen",
+              "rank": 92,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Vampire",
+              "rank": 90,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Swordplay",
+              "rank": 88,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Male Protagonist",
+              "rank": 82,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Tragedy",
+              "rank": 78,
+              "isGeneralSpoiler": true,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Travel",
+              "rank": 76,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Primarily Teen Cast",
+              "rank": 76,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Monster Girl",
+              "rank": 74,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Revenge",
+              "rank": 74,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Orphan",
+              "rank": 70,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Gore",
+              "rank": 67,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "CGI",
+              "rank": 66,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Mythology",
+              "rank": 65,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Primarily Male Cast",
+              "rank": 65,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Rural",
+              "rank": 60,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Historical",
+              "rank": 58,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Rotoscoping",
+              "rank": 56,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Super Power",
+              "rank": 56,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Body Horror",
+              "rank": 55,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Curses",
+              "rank": 50,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Chibi",
+              "rank": 49,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Time Skip",
+              "rank": 41,
+              "isGeneralSpoiler": true,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Animals",
+              "rank": 20,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            },
+            {
+              "name": "Food",
+              "rank": 13,
+              "isGeneralSpoiler": false,
+              "isMediaSpoiler": false
+            }
+          ],
+          "averageScore": 82,
+          "popularity": 997230,
+          "isAdult": false,
+          "coverImage": {
+            "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101922-WBsBl0ClmgYL.jpg"
+          },
+          "bannerImage": "https://s4.anilist.co/file/anilistcdn/media/anime/banner/101922-33MtJGsUSxga.jpg",
+          "updatedAt": 1790276410,
+          "relations": {
+            "edges": [
+              {
+                "relationType": "ADAPTATION",
+                "node": {
+                  "id": 87216,
+                  "type": "MANGA"
+                }
+              },
+              {
+                "relationType": "SEQUEL",
+                "node": {
+                  "id": 112151,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "CHARACTER",
+                "node": {
+                  "id": 129627,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "SEQUEL",
+                "node": {
+                  "id": 129874,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "CHARACTER",
+                "node": {
+                  "id": 154541,
+                  "type": "ANIME"
+                }
+              },
+              {
+                "relationType": "CHARACTER",
+                "node": {
+                  "id": 187383,
+                  "type": "ANIME"
+                }
+              }
+            ]
+          },
+          "recommendations": {
+            "nodes": [
+              {
+                "rating": 3343,
+                "mediaRecommendation": {
+                  "id": 113415
+                }
+              },
+              {
+                "rating": 1945,
+                "mediaRecommendation": {
+                  "id": 101347
+                }
+              },
+              {
+                "rating": 385,
+                "mediaRecommendation": {
+                  "id": 269
+                }
+              },
+              {
+                "rating": 335,
+                "mediaRecommendation": {
+                  "id": 104276
+                }
+              },
+              {
+                "rating": 151,
+                "mediaRecommendation": {
+                  "id": 97940
+                }
+              },
+              {
+                "rating": 148,
+                "mediaRecommendation": {
+                  "id": 128893
+                }
+              },
+              {
+                "rating": 107,
+                "mediaRecommendation": {
+                  "id": 142877
+                }
+              },
+              {
+                "rating": 103,
+                "mediaRecommendation": {
+                  "id": 11061
+                }
+              },
+              {
+                "rating": 101,
+                "mediaRecommendation": {
+                  "id": 5114
+                }
+              },
+              {
+                "rating": 101,
+                "mediaRecommendation": {
+                  "id": 20613
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
