@@ -209,6 +209,40 @@
             }
           ],
           "averageScore": 85,
+          "stats": {
+            "scoreDistribution": [
+              {
+                "amount": 3180
+              },
+              {
+                "amount": 995
+              },
+              {
+                "amount": 2174
+              },
+              {
+                "amount": 3769
+              },
+              {
+                "amount": 9666
+              },
+              {
+                "amount": 17994
+              },
+              {
+                "amount": 57157
+              },
+              {
+                "amount": 131420
+              },
+              {
+                "amount": 196515
+              },
+              {
+                "amount": 187770
+              }
+            ]
+          },
           "popularity": 1058032,
           "isAdult": false,
           "coverImage": {
@@ -542,6 +576,40 @@
             }
           ],
           "averageScore": 82,
+          "stats": {
+            "scoreDistribution": [
+              {
+                "amount": 2633
+              },
+              {
+                "amount": 1067
+              },
+              {
+                "amount": 2541
+              },
+              {
+                "amount": 4250
+              },
+              {
+                "amount": 12268
+              },
+              {
+                "amount": 23220
+              },
+              {
+                "amount": 68150
+              },
+              {
+                "amount": 139569
+              },
+              {
+                "amount": 172672
+              },
+              {
+                "amount": 123617
+              }
+            ]
+          },
           "popularity": 997230,
           "isAdult": false,
           "coverImage": {

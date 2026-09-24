@@ -6,7 +6,7 @@ const MEDIA_PAGE_QUERY = /* GraphQL */ `
   query ($page: Int, $perPage: Int, $sort: [MediaSort]) {
     Page(page: $page, perPage: $perPage) {
       pageInfo { currentPage hasNextPage }
-      media(type: ANIME, isAdult: false, sort: $sort) {
+      media(type: ANIME, isAdult: false, format_not: MUSIC, status_not: NOT_YET_RELEASED, sort: $sort) {
         id
         idMal
         title { romaji english native }
@@ -21,6 +21,7 @@ const MEDIA_PAGE_QUERY = /* GraphQL */ `
         genres
         tags { name rank isGeneralSpoiler isMediaSpoiler }
         averageScore
+        stats { scoreDistribution { amount } }
         popularity
         isAdult
         coverImage { extraLarge }

@@ -32,6 +32,9 @@ export const mediaSchema = z.object({
     }),
   ),
   averageScore: z.number().nullish(),
+  stats: z
+    .object({ scoreDistribution: z.array(z.object({ amount: z.number() })).nullish() })
+    .nullish(),
   popularity: z.number().nullish(),
   isAdult: z.boolean().nullish(),
   coverImage: z.object({ extraLarge: z.string().nullish() }).nullish(),
