@@ -1,0 +1,8 @@
+{
+  "crons": [{ "path": "/api/cron/sync", "schedule": "0 3 * * *" }],
+  "functions": {
+    "src/app/api/queues/catalog-sync/route.ts": {
+      "experimentalTriggers": [{ "type": "queue/v2beta", "topic": "catalog-sync" }]
+    }
+  }
+}
