@@ -1,9 +1,10 @@
 import type { db as Db } from "@/db/client";
 import type { MediaType, TmdbClient } from "@/lib/tmdb/client";
 
+import { upsertWithAnimeMapping } from "./anime-link";
 import { mapTmdbMovie, mapTmdbTv } from "./tmdb-map";
 import type { IngestCounts } from "./types";
-import { findTitleId, upsertCatalogEntry } from "./upsert";
+import { findTitleId } from "./upsert";
 
 // Fetches, maps and upserts one TMDB title; returns false if it failed.
 export async function ingestTmdbTitle(
@@ -14,7 +15,7 @@ export async function ingestTmdbTitle(
 ): Promise<boolean> {
   try {
     const entry = type === "movie" ? mapTmdbMovie(await tmdb.movie(id)) : mapTmdbTv(await tmdb.tv(id));
-    await upsertCatalogEntry(db, entry);
+    await upsertWithAnimeMapping(db, entry);
     return true;
   } catch (err) {
     console.error(`${type} ${id}:`, err instanceof Error ? err.message : err);
@@ -32,7 +33,7 @@ export async function ingestTmdbDiscover(
   const source = opts.type === "movie" ? "tmdb_movie" : "tmdb_tv";
   // TMDB discover stops at page 500.
   const lastPage = Math.min(opts.startPage + opts.pages - 1, 500);
-  const counts: IngestCounts = { upserted: 0, skipped: 0, failed: 0 };
+  const counts: IngestCounts = { upserted: 0, aliased: 0, skipped: 0, failed: 0 };
 
   for (let page = opts.startPage; page <= lastPage; page++) {
     const { results, total_pages } = await tmdb.discover(opts.type, {

@@ -20,4 +20,4 @@ export type CatalogEntry = {
   relations: { targetExternalId: string; kind: string; weight: number | null }[];
 };
 
-export type IngestCounts = { upserted: number; skipped: number; failed: number };
+export type IngestCounts = { upserted: number; aliased: number; skipped: number; failed: number };
