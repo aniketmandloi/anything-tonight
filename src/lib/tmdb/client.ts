@@ -9,6 +9,8 @@ import {
   type DiscoverPage,
   type MovieDetails,
   type TvDetails,
+  type WatchProviders,
+  watchProvidersSchema,
 } from "./schemas";
 
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -90,6 +92,9 @@ export function createTmdbClient({
     },
     tv(id: number): Promise<TvDetails> {
       return get(`/tv/${id}`, { append_to_response: APPEND.tv }, tvDetailsSchema);
+    },
+    watchProviders(type: MediaType, id: number): Promise<WatchProviders> {
+      return get(`/${type}/${id}/watch/providers`, {}, watchProvidersSchema);
     },
     changes(type: MediaType, params: Params = {}): Promise<ChangesPage> {
       return get(`/${type}/changes`, params, changesSchema);

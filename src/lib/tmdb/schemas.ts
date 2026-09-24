@@ -18,7 +18,7 @@ export const regionProvidersSchema = z.object({
   buy: z.array(providerSchema).optional(),
 });
 
-const watchProvidersSchema = z.object({
+export const watchProvidersSchema = z.object({
   results: z.record(z.string(), regionProvidersSchema),
 });
 
@@ -94,5 +94,6 @@ export const changesSchema = pagedSchema(
 export type MovieDetails = z.infer<typeof movieDetailsSchema>;
 export type TvDetails = z.infer<typeof tvDetailsSchema>;
 export type RegionProviders = z.infer<typeof regionProvidersSchema>;
+export type WatchProviders = z.infer<typeof watchProvidersSchema>;
 export type DiscoverPage = z.infer<typeof discoverSchema>;
 export type ChangesPage = z.infer<typeof changesSchema>;

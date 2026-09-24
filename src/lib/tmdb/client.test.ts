@@ -46,6 +46,15 @@ describe("tmdb client", () => {
     expect(tv.content_ratings.results[0].rating).toBe("TV-MA");
   });
 
+  it("fetches watch providers on their own", async () => {
+    const { client, fetch } = setup(json({ id: 550, ...movieFixture["watch/providers"] }));
+    const providers = await client.watchProviders("movie", 550);
+    expect(String(fetch.mock.calls[0][0])).toBe(
+      "https://api.themoviedb.org/3/movie/550/watch/providers",
+    );
+    expect(Object.keys(providers.results)).toEqual(["US", "IN"]);
+  });
+
   it("passes discover params through the query string", async () => {
     const { client, fetch } = setup(json(discoverFixture));
     const page = await client.discover("movie", { sort_by: "vote_count.desc", page: 1 });
