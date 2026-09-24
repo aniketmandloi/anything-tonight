@@ -15,7 +15,8 @@
     "ingest:tmdb-tv": "tsx --env-file=.env scripts/ingest/tmdb-tv.ts",
     "ingest:anilist": "tsx --env-file=.env scripts/ingest/anilist-anime.ts",
     "ingest:anime-map": "tsx --env-file=.env scripts/ingest/anime-id-map.ts",
-    "ingest:anime-dedupe": "tsx --env-file=.env scripts/ingest/anime-dedupe.ts"
+    "ingest:anime-dedupe": "tsx --env-file=.env scripts/ingest/anime-dedupe.ts",
+    "ingest:providers": "tsx --env-file=.env scripts/ingest/providers.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

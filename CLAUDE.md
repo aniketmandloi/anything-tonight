@@ -12,6 +12,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm ingest:tmdb-movies|ingest:tmdb-tv --pages N` (skips titles already stored; `--refresh` re-fetches). Needs the DNS switch below.
 - `pnpm ingest:anilist --pages N` (50 anime per page, always upserts; resume with `--start-page`). No DNS switch needed.
 - `pnpm ingest:anime-map` (reload the Fribb AniList↔TMDB mapping) · `pnpm ingest:anime-dedupe` (fold existing duplicates; exits 1 if any show still has two titles).
+- `pnpm ingest:providers [--limit N]` (refresh watch providers for every title with a TMDB id; regions in `PROVIDER_REGIONS`). Needs the DNS switch.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
