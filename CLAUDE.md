@@ -38,3 +38,4 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - AniList documents 90 req/min but the live API returns `X-RateLimit-Limit: 30`; the client paces from the header, so a full anime ingest takes ~2s per 50-title page.
 - Scripts run with `tsx --env-file=.env` and must be `.mts`: the package isn't `"type": "module"`, so tsx compiles `.ts` as CJS and rejects top-level await. They must `await db.$client.end()` or the pool keeps the process alive.
 - Catalog edges (`title_relations`) point at external ids, not title ids, so ingest order doesn't matter; each ingest replaces its own source's edges on upsert.
+- `titles.poster_path`/`backdrop_path` hold a TMDB relative path (prefix `https://image.tmdb.org/t/p/<size>`) or, for AniList rows, a full `https://` URL. `popularity` isn't comparable across sources (TMDB trending score vs AniList list count); `vote_avg` is 0–10 for both.
