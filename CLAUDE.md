@@ -30,4 +30,5 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - The DB client uses `attachDatabasePool` so Fluid Compute can release idle connections. Migrations use `DATABASE_URL_UNPOOLED` when set, otherwise the pooled URL (works on Neon so far).
 - `src/proxy.ts` protects every route except `/`, `/sign-in`, `/sign-up`; new pages are private by default. Signed-in pages live in the `(app)` route group.
 - Schema tables are exported from `src/db/schema/index.ts`; migrations are in `drizzle/`.
+- The user's ISP (Jio) blocks `themoviedb.org` at the DNS level: it resolves to 49.44.79.236 and connections time out. Fix it by setting the Mac's DNS to 1.1.1.1; check with `dig +short api.themoviedb.org`. Vercel servers aren't affected.
 - TMDB and AniList data are free for non-commercial use only, and need attribution (TMDB + JustWatch for providers). Monetizing requires a TMDB commercial license.
