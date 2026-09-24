@@ -11,7 +11,8 @@
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "ingest:tmdb-movies": "tsx --env-file=.env scripts/ingest/tmdb-movies.mts"
+    "ingest:tmdb-movies": "tsx --env-file=.env scripts/ingest/tmdb-movies.mts",
+    "ingest:tmdb-tv": "tsx --env-file=.env scripts/ingest/tmdb-tv.mts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

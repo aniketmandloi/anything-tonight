@@ -9,7 +9,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm lint` · `pnpm typecheck` · `pnpm test` (CI runs all three on push to main)
 - `pnpm build`
 - `pnpm db:generate` (add `--custom --name x` for hand-written SQL) · `pnpm db:migrate`
-- `pnpm ingest:tmdb-movies --pages N` (skips titles already stored; `--refresh` re-fetches). Needs the DNS switch below.
+- `pnpm ingest:tmdb-movies|ingest:tmdb-tv --pages N` (skips titles already stored; `--refresh` re-fetches). Needs the DNS switch below.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
