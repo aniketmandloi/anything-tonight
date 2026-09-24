@@ -7,12 +7,16 @@ export type TitleFields = Omit<
   "id" | "embedding" | "mood" | "quality" | "createdAt" | "updatedAt"
 >;
 
+export type ExternalRef = { source: ExternalSource; externalId: string };
+
 // One title as produced by an ingest source, ready to upsert.
 // externalIds[0] is the source's own id and identifies the title on re-runs;
-// relation targets share that source.
+// relation targets share that source. linkedIds are only used to find an existing
+// title (the same anime from the other source) and are never written.
 export type CatalogEntry = {
   title: TitleFields;
-  externalIds: { source: ExternalSource; externalId: string }[];
+  externalIds: ExternalRef[];
+  linkedIds?: ExternalRef[];
   relations: { targetExternalId: string; kind: string; weight: number | null }[];
 };
 
