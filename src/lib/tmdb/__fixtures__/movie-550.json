@@ -1,0 +1,71 @@
+{
+  "adult": false,
+  "backdrop_path": "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
+  "budget": 63000000,
+  "genres": [{ "id": 18, "name": "Drama" }, { "id": 53, "name": "Thriller" }],
+  "homepage": "http://www.foxmovies.com/movies/fight-club",
+  "id": 550,
+  "imdb_id": "tt0137523",
+  "original_language": "en",
+  "original_title": "Fight Club",
+  "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy.",
+  "popularity": 61.416,
+  "poster_path": "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+  "release_date": "1999-10-15",
+  "runtime": 139,
+  "status": "Released",
+  "title": "Fight Club",
+  "vote_average": 8.433,
+  "vote_count": 26280,
+  "keywords": {
+    "keywords": [
+      { "id": 825, "name": "support group" },
+      { "id": 1721, "name": "fight" },
+      { "id": 4565, "name": "dystopia" }
+    ]
+  },
+  "recommendations": {
+    "page": 1,
+    "results": [
+      { "id": 680, "title": "Pulp Fiction", "media_type": "movie" },
+      { "id": 807, "title": "Se7en", "media_type": "movie" }
+    ],
+    "total_pages": 2,
+    "total_results": 40
+  },
+  "external_ids": {
+    "imdb_id": "tt0137523",
+    "wikidata_id": "Q190050",
+    "facebook_id": "FightClub",
+    "instagram_id": null,
+    "twitter_id": null
+  },
+  "watch/providers": {
+    "results": {
+      "US": {
+        "link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=US",
+        "flatrate": [
+          { "logo_path": "/t2yyOv40HZeVlLjYsCsPHnWLk4W.jpg", "provider_id": 337, "provider_name": "Disney Plus", "display_priority": 1 }
+        ],
+        "rent": [
+          { "logo_path": "/9ghgSC0MA082EL6HLCW3GalykFD.jpg", "provider_id": 2, "provider_name": "Apple TV", "display_priority": 4 }
+        ],
+        "buy": [
+          { "logo_path": "/9ghgSC0MA082EL6HLCW3GalykFD.jpg", "provider_id": 2, "provider_name": "Apple TV", "display_priority": 4 }
+        ]
+      },
+      "IN": {
+        "link": "https://www.themoviedb.org/movie/550-fight-club/watch?locale=IN",
+        "flatrate": [
+          { "logo_path": "/7rwgEs15tFwyR9NPQ5vpzxTj19Q.jpg", "provider_id": 122, "provider_name": "JioHotstar", "display_priority": 2 }
+        ]
+      }
+    }
+  },
+  "release_dates": {
+    "results": [
+      { "iso_3166_1": "US", "release_dates": [{ "certification": "R", "iso_639_1": "", "note": "", "release_date": "1999-10-15T00:00:00.000Z", "type": 3 }] },
+      { "iso_3166_1": "IN", "release_dates": [{ "certification": "A", "iso_639_1": "", "note": "", "release_date": "1999-10-15T00:00:00.000Z", "type": 3 }] }
+    ]
+  }
+}
