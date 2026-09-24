@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import movieFixture from "@/lib/tmdb/__fixtures__/movie-550.json";
-import { movieDetailsSchema } from "@/lib/tmdb/schemas";
+import tvFixture from "@/lib/tmdb/__fixtures__/tv-1399.json";
+import { movieDetailsSchema, tvDetailsSchema } from "@/lib/tmdb/schemas";
 
-import { mapTmdbMovie, pickCertification, yearOf } from "./tmdb-map";
+import { mapTmdbMovie, mapTmdbTv, pickCertification, yearOf } from "./tmdb-map";
 
 describe("mapTmdbMovie", () => {
   const movie = movieDetailsSchema.parse(movieFixture);
@@ -47,6 +48,43 @@ describe("mapTmdbMovie", () => {
     });
     expect(title).toMatchObject({ overview: null, year: null, runtime: null });
     expect(externalIds).toHaveLength(1);
+  });
+});
+
+describe("mapTmdbTv", () => {
+  const tv = tvDetailsSchema.parse(tvFixture);
+
+  it("maps details to a title row", () => {
+    const entry = mapTmdbTv(tv);
+    expect(entry.title).toMatchObject({
+      type: "tv",
+      title: "Game of Thrones",
+      year: 2011,
+      runtime: null,
+      keywords: ["based on novel or book", "dragon"],
+      maturity: "TV-MA",
+    });
+    expect(entry.externalIds).toEqual([
+      { source: "tmdb_tv", externalId: "1399" },
+      { source: "imdb", externalId: "tt0944947" },
+    ]);
+    expect(entry.relations).toEqual([
+      { targetExternalId: "1402", kind: "recommendation", weight: 1 },
+    ]);
+  });
+
+  it("uses the first episode runtime when present", () => {
+    expect(mapTmdbTv({ ...tv, episode_run_time: [24, 30] }).title.runtime).toBe(24);
+  });
+
+  it("types Japanese animation as anime", () => {
+    const animation = [{ id: 16, name: "Animation" }];
+    expect(
+      mapTmdbTv({ ...tv, genres: animation, original_language: "ja", origin_country: ["JP"] }).title
+        .type,
+    ).toBe("anime");
+    expect(mapTmdbTv({ ...tv, genres: animation, original_language: "en" }).title.type).toBe("tv");
+    expect(mapTmdbTv({ ...tv, original_language: "ja" }).title.type).toBe("tv");
   });
 });
 

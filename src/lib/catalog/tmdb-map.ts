@@ -1,4 +1,4 @@
-import type { MovieDetails } from "@/lib/tmdb/schemas";
+import type { MovieDetails, TvDetails } from "@/lib/tmdb/schemas";
 
 import type { CatalogEntry } from "./types";
 
@@ -44,6 +44,42 @@ export function mapTmdbMovie(d: MovieDetails): CatalogEntry {
     },
     externalIds: [
       { source: "tmdb_movie", externalId: String(d.id) },
+      ...(d.external_ids.imdb_id ? [{ source: "imdb" as const, externalId: d.external_ids.imdb_id }] : []),
+    ],
+    relations: rankedRecommendations(d.recommendations.results),
+  };
+}
+
+const ANIMATION_GENRE_ID = 16;
+
+// Japanese animated series are anime; #16 later merges them with their AniList entries.
+export const isAnime = (d: TvDetails) =>
+  d.genres.some((g) => g.id === ANIMATION_GENRE_ID) &&
+  (d.original_language === "ja" || (d.origin_country ?? []).includes("JP"));
+
+export function mapTmdbTv(d: TvDetails): CatalogEntry {
+  return {
+    title: {
+      type: isAnime(d) ? "anime" : "tv",
+      title: d.name,
+      originalTitle: d.original_name ?? null,
+      overview: d.overview || null,
+      year: yearOf(d.first_air_date),
+      runtime: d.episode_run_time?.[0] || null,
+      genres: d.genres.map((g) => g.name),
+      keywords: d.keywords.results.map((k) => k.name),
+      originalLanguage: d.original_language ?? null,
+      maturity: pickCertification(
+        d.content_ratings.results.map((r) => ({ region: r.iso_3166_1, value: r.rating })),
+      ),
+      posterPath: d.poster_path ?? null,
+      backdropPath: d.backdrop_path ?? null,
+      voteAvg: d.vote_average ?? null,
+      voteCount: d.vote_count ?? null,
+      popularity: d.popularity ?? null,
+    },
+    externalIds: [
+      { source: "tmdb_tv", externalId: String(d.id) },
       ...(d.external_ids.imdb_id ? [{ source: "imdb" as const, externalId: d.external_ids.imdb_id }] : []),
     ],
     relations: rankedRecommendations(d.recommendations.results),
