@@ -9,6 +9,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm lint` · `pnpm typecheck` · `pnpm test` (CI runs all three on push to main)
 - `pnpm build`
 - `pnpm db:generate` (add `--custom --name x` for hand-written SQL) · `pnpm db:migrate`
+- `pnpm ingest:tmdb-movies --pages N` (skips titles already stored; `--refresh` re-fetches). Needs the DNS switch below.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
@@ -34,3 +35,5 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - TMDB and AniList data are free for non-commercial use only, and need attribution (TMDB + JustWatch for providers). Monetizing requires a TMDB commercial license.
 - `titles.embedding` is `vector(1536)`, sized for `openai/text-embedding-3-small` via AI Gateway; `titles.mood` is `vector(8)`, one per mood axis. Picking a model with a different size needs a migration and a full re-embed.
 - AniList documents 90 req/min but the live API returns `X-RateLimit-Limit: 30`; the client paces from the header, so a full anime ingest takes ~2s per 50-title page.
+- Scripts run with `tsx --env-file=.env` and must be `.mts`: the package isn't `"type": "module"`, so tsx compiles `.ts` as CJS and rejects top-level await. They must `await db.$client.end()` or the pool keeps the process alive.
+- Catalog edges (`title_relations`) point at external ids, not title ids, so ingest order doesn't matter; each ingest replaces its own source's edges on upsert.
