@@ -1,39 +1,25 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
-const moods = ["Cozy", "Mind-bending", "Dark", "Laugh", "Cry", "Adrenaline"];
+import { buttonVariants } from "@/components/ui/button";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-8 px-4 py-16">
+    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col justify-center gap-6 px-4 py-16">
       <h1 className="text-4xl font-semibold tracking-tight">
-        What are we watching tonight?
+        Know what to watch tonight.
       </h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>Pick a mood</CardTitle>
-          <CardDescription>
-            Movies, anime and series matched to your taste.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-wrap gap-2">
-            {moods.map((mood) => (
-              <Button key={mood} variant="outline">
-                {mood}
-              </Button>
-            ))}
-          </div>
-          <Input placeholder="Or describe it: like Dark, but less depressing" />
-        </CardContent>
-      </Card>
+      <p className="text-lg text-muted-foreground">
+        Movies, anime and series picked from what you&apos;ve loved, your mood,
+        and the services you already pay for.
+      </p>
+      <div className="flex gap-3">
+        <Link href="/sign-up" className={buttonVariants()}>
+          Get started
+        </Link>
+        <Link href="/sign-in" className={buttonVariants({ variant: "outline" })}>
+          Sign in
+        </Link>
+      </div>
     </main>
   );
 }
