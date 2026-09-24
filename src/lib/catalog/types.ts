@@ -15,3 +15,5 @@ export type CatalogEntry = {
   externalIds: { source: ExternalSource; externalId: string }[];
   relations: { targetExternalId: string; kind: string; weight: number | null }[];
 };
+
+export type IngestCounts = { upserted: number; skipped: number; failed: number };

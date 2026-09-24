@@ -10,6 +10,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm build`
 - `pnpm db:generate` (add `--custom --name x` for hand-written SQL) · `pnpm db:migrate`
 - `pnpm ingest:tmdb-movies|ingest:tmdb-tv --pages N` (skips titles already stored; `--refresh` re-fetches). Needs the DNS switch below.
+- `pnpm ingest:anilist --pages N` (50 anime per page, always upserts; resume with `--start-page`). No DNS switch needed.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow

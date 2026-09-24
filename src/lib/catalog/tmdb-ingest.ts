@@ -2,9 +2,8 @@ import type { db as Db } from "@/db/client";
 import type { MediaType, TmdbClient } from "@/lib/tmdb/client";
 
 import { mapTmdbMovie, mapTmdbTv } from "./tmdb-map";
+import type { IngestCounts } from "./types";
 import { findTitleId, upsertCatalogEntry } from "./upsert";
-
-export type IngestCounts = { upserted: number; skipped: number; failed: number };
 
 // Fetches, maps and upserts one TMDB title; returns false if it failed.
 export async function ingestTmdbTitle(
