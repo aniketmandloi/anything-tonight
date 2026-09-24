@@ -20,7 +20,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - Record new non-obvious decisions and gotchas in the section below, in the commit that introduces them.
 
 ## Environment
-Secrets live in `.env` (gitignored). The user pastes the values in; never ask for secrets in chat and never print them. Current keys: `DATABASE_URL` (Neon, pooled), `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` (dev instance). `drizzle.config.ts` loads `.env.local` then `.env`; scripts can use `node --env-file=.env`.
+Secrets live in `.env` (gitignored). The user pastes the values in; never ask for secrets in chat and never print them. Current keys: `DATABASE_URL` (Neon, pooled), `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` (dev instance), `TMDB_READ_ACCESS_TOKEN` (v4 bearer token, also works for v3 endpoints). `drizzle.config.ts` loads `.env.local` then `.env`; scripts can use `node --env-file=.env`.
 
 ## Decisions & gotchas
 - pnpm 12 blocks dependency build scripts; allow them in `pnpm-workspace.yaml` → `allowBuilds` (esbuild is allowed for drizzle-kit).
