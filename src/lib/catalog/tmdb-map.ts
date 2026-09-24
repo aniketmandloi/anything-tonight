@@ -65,7 +65,8 @@ export function mapTmdbTv(d: TvDetails): CatalogEntry {
       originalTitle: d.original_name ?? null,
       overview: d.overview || null,
       year: yearOf(d.first_air_date),
-      runtime: d.episode_run_time?.[0] || null,
+      // TMDB has mostly stopped filling episode_run_time.
+      runtime: d.episode_run_time?.[0] || d.last_episode_to_air?.runtime || null,
       genres: d.genres.map((g) => g.name),
       keywords: d.keywords.results.map((k) => k.name),
       originalLanguage: d.original_language ?? null,

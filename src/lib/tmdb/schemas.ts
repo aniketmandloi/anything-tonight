@@ -68,6 +68,7 @@ export const tvDetailsSchema = z.object({
   original_name: z.string().nullish(),
   first_air_date: z.string().nullish(),
   episode_run_time: z.array(z.number()).nullish(),
+  last_episode_to_air: z.object({ runtime: z.number().nullish() }).nullish(),
   origin_country: z.array(z.string()).nullish(),
   keywords: z.object({ results: z.array(named) }),
   content_ratings: z.object({

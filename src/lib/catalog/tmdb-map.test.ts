@@ -73,8 +73,9 @@ describe("mapTmdbTv", () => {
     ]);
   });
 
-  it("uses the first episode runtime when present", () => {
+  it("uses the first episode runtime, else the latest episode's", () => {
     expect(mapTmdbTv({ ...tv, episode_run_time: [24, 30] }).title.runtime).toBe(24);
+    expect(mapTmdbTv({ ...tv, last_episode_to_air: { runtime: 80 } }).title.runtime).toBe(80);
   });
 
   it("types Japanese animation as anime", () => {
