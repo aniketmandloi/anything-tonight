@@ -85,6 +85,20 @@
       "when": 1790326806851,
       "tag": "0011_titles-trigram-indexes",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1790326955345,
+      "tag": "0012_immutable-unaccent",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1790326955922,
+      "tag": "0013_titles-unaccent-trigram-indexes",
+      "breakpoints": true
     }
   ]
 }
