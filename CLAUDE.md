@@ -14,6 +14,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm ingest:anime-map` (reload the Fribb AniList↔TMDB mapping) · `pnpm ingest:anime-dedupe` (fold existing duplicates; exits 1 if any show still has two titles).
 - `pnpm ingest:providers [--limit N]` (refresh watch providers for every title with a TMDB id; regions in `PROVIDER_REGIONS`). Needs the DNS switch.
 - `pnpm enrich:quality` (recompute `titles.quality` for the whole catalog; rerun after ingests).
+- `pnpm enrich:embeddings [--limit N] [--batch N]` (embed titles that are missing an embedding or whose text changed; resumable). Needs `AI_GATEWAY_API_KEY`.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
@@ -46,3 +47,5 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - Nightly sync: Vercel Cron (`vercel.json`, 03:00 UTC) hits `/api/cron/sync`, which sends `catalog-sync` queue messages: TMDB `/changes` for titles we already have, plus the 1,000 stalest titles (to refresh providers, which `/changes` doesn't report), plus AniList page 1. The consumer `/api/queues/catalog-sync` sends the next AniList page itself, so only one AniList request runs at a time. `/api/cron` and `/api/queues` are public in `src/proxy.ts`. Queues need a linked Vercel project (OIDC); locally, `send()` needs `vercel link` + `vercel env pull`.
 - Enrichment scripts write `quality`/`embedding`/`mood` with raw SQL `update`s so `titles.updated_at` doesn't change: nightly sync refreshes the titles with the oldest `updated_at`. Drizzle's `.update()` would bump it through `$onUpdate`.
 - `titles.quality` is an IMDb-style weighted rating computed separately per pool (`type` plus vote source: TMDB when the title has a TMDB id, otherwise AniList), because AniList vote counts are ~100× TMDB's. The prior is the pool's mean rating, with m = the pool's median vote count.
+- AI Gateway is called through its OpenAI-compatible REST API with `fetch` (`src/lib/ai-gateway/client.ts`), with no AI SDK dependency. The gateway returns 403 `customer_verification_required` until the Vercel account has a credit card on file.
+- `titles.embedding_hash` is sha256(model + embedding text). A title is re-embedded when the hash differs, so changing `buildEmbeddingText` or `EMBEDDING_MODEL` re-embeds exactly the titles it affects.
