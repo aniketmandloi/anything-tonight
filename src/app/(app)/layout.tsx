@@ -1,6 +1,8 @@
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
+import { SearchCommand } from "@/components/search-command";
+
 export default function AppLayout({ children }: LayoutProps<"/">) {
   return (
     <>
@@ -8,7 +10,10 @@ export default function AppLayout({ children }: LayoutProps<"/">) {
         <Link href="/tonight" className="font-semibold tracking-tight">
           Anything Tonight
         </Link>
-        <UserButton />
+        <div className="flex items-center gap-3">
+          <SearchCommand />
+          <UserButton />
+        </div>
       </header>
       {children}
     </>
