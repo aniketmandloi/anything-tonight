@@ -2,9 +2,9 @@
 
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { SearchIcon } from "lucide-react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { TitlePoster } from "@/components/title-poster";
 import { TitleTypeBadge } from "@/components/title-type-badge";
 import { useDebouncedValue } from "@/hooks/use-debounced-value";
 import type { SearchResult } from "@/lib/search/query";
@@ -87,7 +87,7 @@ export function TitleSearch({
               onClick={() => onSelect(title)}
               className="flex cursor-default items-center gap-3 rounded-lg p-1.5 outline-none select-none data-highlighted:bg-muted"
             >
-              <Poster url={title.posterUrl} />
+              <TitlePoster url={title.posterUrl} className="w-8" />
               <span className="flex min-w-0 flex-1 flex-col">
                 <span className="truncate font-medium">{title.title}</span>
                 {title.year && <span className="text-xs text-muted-foreground">{title.year}</span>}
@@ -98,13 +98,5 @@ export function TitleSearch({
         </Autocomplete.List>
       </div>
     </Autocomplete.Root>
-  );
-}
-
-function Poster({ url }: { url: string | null }) {
-  if (!url) return <span className="h-12 w-8 shrink-0 rounded bg-muted" />;
-  // unoptimized: TMDB and AniList already serve sized images, so Vercel optimization only adds cost.
-  return (
-    <Image src={url} alt="" width={32} height={48} unoptimized className="h-12 w-8 shrink-0 rounded object-cover" />
   );
 }
