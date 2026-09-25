@@ -14,6 +14,9 @@ export default function AppLayout({ children }: LayoutProps<"/">) {
           <Link href="/library" className="text-sm text-muted-foreground hover:text-foreground">
             Library
           </Link>
+          <Link href="/services" className="text-sm text-muted-foreground hover:text-foreground">
+            Services
+          </Link>
         </nav>
         <div className="flex items-center gap-3">
           <SearchCommand />
