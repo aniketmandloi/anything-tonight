@@ -38,6 +38,7 @@ export const titles = pgTable(
     // Hash of the model and text the embedding was made from; a mismatch means it's stale.
     embeddingHash: text("embedding_hash"),
     mood: vector({ dimensions: MOOD_DIMENSIONS }),
+    moodTags: text("mood_tags").array().notNull().default([]),
     quality: real(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true })

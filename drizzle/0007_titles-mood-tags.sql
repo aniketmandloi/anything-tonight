@@ -1,0 +1,1 @@
+ALTER TABLE "titles" ADD COLUMN "mood_tags" text[] DEFAULT '{}' NOT NULL;

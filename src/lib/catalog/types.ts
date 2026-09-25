@@ -4,7 +4,7 @@ export type ExternalSource = (typeof externalSource.enumValues)[number];
 
 export type TitleFields = Omit<
   typeof titles.$inferInsert,
-  "id" | "embedding" | "embeddingHash" | "mood" | "quality" | "createdAt" | "updatedAt"
+  "id" | "embedding" | "embeddingHash" | "mood" | "moodTags" | "quality" | "createdAt" | "updatedAt"
 >;
 
 export type ExternalRef = { source: ExternalSource; externalId: string };
