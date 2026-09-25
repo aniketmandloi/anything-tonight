@@ -4,6 +4,7 @@ import { MOOD_DIMENSIONS } from "@/db/schema";
 
 import {
   buildMoodPrompt,
+  matchMoodResults,
   MOOD_AXES,
   MOOD_SYSTEM_PROMPT,
   moodBatchSchema,
@@ -46,6 +47,23 @@ describe("moodScoreSchema", () => {
     ["too many tags", { ...score, tags: ["epic", "gritty", "adrenaline", "unsettling", "slow burn"] }],
   ])("rejects %s", (_, input) => {
     expect(moodScoreSchema.safeParse(input).success).toBe(false);
+  });
+});
+
+describe("matchMoodResults", () => {
+  it("keeps the first score per requested id and drops unknown ids", () => {
+    const other = { ...score, light: 9 };
+    const scores = matchMoodResults([1, 2, 3], {
+      titles: [
+        { id: 2, ...score },
+        { id: 99, ...score },
+        { id: 2, ...other },
+        { id: 1, ...other },
+      ],
+    });
+    expect([...scores.keys()]).toEqual([2, 1]);
+    expect(scores.get(2)).toEqual(score);
+    expect(scores.has(3)).toBe(false);
   });
 });
 

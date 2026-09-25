@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import type { titles } from "@/db/schema";
 
+export const MOOD_MODEL = "gpt-6-luna";
+
 // Array order is the order of titles.mood. Reordering axes or changing what one means
 // requires re-scoring every title.
 export const MOOD_AXES = [
@@ -59,6 +61,17 @@ export const moodBatchSchema = z.object({
 });
 
 export type MoodBatch = z.infer<typeof moodBatchSchema>;
+
+// Keeps one score per requested title. Ids the model made up are dropped, and titles it
+// skipped stay unscored so the next run retries them.
+export function matchMoodResults(requested: number[], batch: MoodBatch): Map<number, MoodScore> {
+  const wanted = new Set(requested);
+  const scores = new Map<number, MoodScore>();
+  for (const { id, ...score } of batch.titles) {
+    if (wanted.has(id) && !scores.has(id)) scores.set(id, score);
+  }
+  return scores;
+}
 
 // Packs scores into titles.mood: one value in [0, 1] per axis, in MOOD_AXES order.
 export function packMood(score: MoodScore): number[] {
