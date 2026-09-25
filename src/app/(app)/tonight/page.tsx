@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -34,6 +36,12 @@ export default function TonightPage() {
           <Input placeholder="Or describe it: like Dark, but less depressing" />
         </CardContent>
       </Card>
+      <p className="text-sm text-muted-foreground">
+        New here?{" "}
+        <Link href="/onboarding" className="underline underline-offset-4 hover:text-foreground">
+          Tune your picks in a minute
+        </Link>
+      </p>
     </main>
   );
 }
