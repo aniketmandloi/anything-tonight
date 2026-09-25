@@ -13,6 +13,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm ingest:anilist --pages N` (50 anime per page, always upserts; resume with `--start-page`). No DNS switch needed.
 - `pnpm ingest:anime-map` (reload the Fribb AniList↔TMDB mapping) · `pnpm ingest:anime-dedupe` (fold existing duplicates; exits 1 if any show still has two titles).
 - `pnpm ingest:providers [--limit N]` (refresh watch providers for every title with a TMDB id; regions in `PROVIDER_REGIONS`). Needs the DNS switch.
+- `pnpm enrich:quality` (recompute `titles.quality` for the whole catalog; rerun after ingests).
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
@@ -43,3 +44,5 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - `titles.poster_path`/`backdrop_path` hold a TMDB relative path (prefix `https://image.tmdb.org/t/p/<size>`) or, for AniList rows, a full `https://` URL. `popularity` isn't comparable across sources (TMDB trending score vs AniList list count); `vote_avg` is 0–10 for both.
 - Anime is one title per TMDB show (or movie). `anime_id_map` (Fribb/anime-lists) marks one AniList entry per show as canonical; other seasons and specials only add their anilist/mal ids to the show's title. On rows that have both TMDB and AniList data, AniList owns genres, keywords, runtime and original title, and TMDB owns everything else (`src/lib/catalog/anime-merge.ts`). `linkedIds` are for lookup only and never get stored, so TMDB's skip-existing check still means "TMDB data present".
 - Nightly sync: Vercel Cron (`vercel.json`, 03:00 UTC) hits `/api/cron/sync`, which sends `catalog-sync` queue messages: TMDB `/changes` for titles we already have, plus the 1,000 stalest titles (to refresh providers, which `/changes` doesn't report), plus AniList page 1. The consumer `/api/queues/catalog-sync` sends the next AniList page itself, so only one AniList request runs at a time. `/api/cron` and `/api/queues` are public in `src/proxy.ts`. Queues need a linked Vercel project (OIDC); locally, `send()` needs `vercel link` + `vercel env pull`.
+- Enrichment scripts write `quality`/`embedding`/`mood` with raw SQL `update`s so `titles.updated_at` doesn't change: nightly sync refreshes the titles with the oldest `updated_at`. Drizzle's `.update()` would bump it through `$onUpdate`.
+- `titles.quality` is an IMDb-style weighted rating computed separately per pool (`type` plus vote source: TMDB when the title has a TMDB id, otherwise AniList), because AniList vote counts are ~100× TMDB's. The prior is the pool's mean rating, with m = the pool's median vote count.
