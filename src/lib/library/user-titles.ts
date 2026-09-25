@@ -5,9 +5,25 @@ import { titles, userTitles } from "@/db/schema";
 import { imageUrl } from "@/lib/catalog/images";
 import type { TitleType } from "@/lib/search/query";
 
-import { choiceFor, RATING_CHOICES, type RatingChoice } from "./choices";
+import { choiceFor, RATING_CHOICES, type RatingChoice, type UserTitleStatus } from "./choices";
 
 // source is kept from the first insert: it records where the title entered the library.
+export async function setUserTitles(
+  db: typeof Db,
+  userId: string,
+  rows: { titleId: number; status: UserTitleStatus; rating: number | null }[],
+  source: string,
+) {
+  if (rows.length === 0) return;
+  await db
+    .insert(userTitles)
+    .values(rows.map((r) => ({ ...r, userId, source })))
+    .onConflictDoUpdate({
+      target: [userTitles.userId, userTitles.titleId],
+      set: { status: sql`excluded.status`, rating: sql`excluded.rating`, updatedAt: sql`now()` },
+    });
+}
+
 export async function setChoice(
   db: typeof Db,
   userId: string,
@@ -16,13 +32,7 @@ export async function setChoice(
   source: string,
 ) {
   const { status, rating } = RATING_CHOICES[choice];
-  await db
-    .insert(userTitles)
-    .values({ userId, titleId, status, rating, source })
-    .onConflictDoUpdate({
-      target: [userTitles.userId, userTitles.titleId],
-      set: { status, rating, updatedAt: sql`now()` },
-    });
+  await setUserTitles(db, userId, [{ titleId, status, rating }], source);
 }
 
 export async function removeTitle(db: typeof Db, userId: string, titleId: number) {
