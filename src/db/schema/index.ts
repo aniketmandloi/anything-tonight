@@ -4,3 +4,4 @@ export * from "./title-providers";
 export * from "./title-relations";
 export * from "./anime-id-map";
 export * from "./user-titles";
+export * from "./user-services";
