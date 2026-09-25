@@ -1,3 +1,4 @@
+import { auth } from "@clerk/nextjs/server";
 import { z } from "zod";
 
 import { db } from "@/db/client";
@@ -14,6 +15,8 @@ export async function GET(request: Request) {
   if (!parsed.success) {
     return Response.json({ error: z.prettifyError(parsed.error) }, { status: 400 });
   }
+  const { userId } = await auth();
+  if (!userId) return new Response("Unauthorized", { status: 401 });
   const { q, type } = parsed.data;
-  return Response.json({ results: await searchTitles(db, q, { type }) });
+  return Response.json({ results: await searchTitles(db, userId, q, { type }) });
 }

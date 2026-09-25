@@ -1,8 +1,9 @@
 import { and, desc, eq, or, sql } from "drizzle-orm";
 
 import type { db as Db } from "@/db/client";
-import { titles, titleType } from "@/db/schema";
+import { titles, titleType, userTitles } from "@/db/schema";
 import { imageUrl } from "@/lib/catalog/images";
+import { choiceFor, type RatingChoice } from "@/lib/library/choices";
 
 import { rankSearchResults } from "./rank";
 
@@ -14,6 +15,8 @@ export type SearchResult = {
   title: string;
   year: number | null;
   posterUrl: string | null;
+  // The signed-in user's current choice for this title, if any.
+  choice: RatingChoice | null;
 };
 
 // Trigram similarity picks the candidates; rankSearchResults orders the final page.
@@ -23,6 +26,7 @@ const escapeLike = (s: string) => s.replace(/[\\%_]/g, "\\$&");
 
 export async function searchTitles(
   db: typeof Db,
+  userId: string,
   query: string,
   { type, limit = 20 }: { type?: TitleType; limit?: number } = {},
 ): Promise<SearchResult[]> {
@@ -47,8 +51,11 @@ export async function searchTitles(
       posterPath: titles.posterPath,
       quality: titles.quality,
       similarity,
+      status: userTitles.status,
+      rating: userTitles.rating,
     })
     .from(titles)
+    .leftJoin(userTitles, and(eq(userTitles.titleId, titles.id), eq(userTitles.userId, userId)))
     .where(
       and(
         type ? eq(titles.type, type) : undefined,
@@ -72,5 +79,6 @@ export async function searchTitles(
       title: r.title,
       year: r.year,
       posterUrl: imageUrl(r.posterPath, "w92"),
+      choice: r.status ? choiceFor(r.status, r.rating) : null,
     }));
 }
