@@ -3,6 +3,8 @@ import { RATING_CHOICES, type UserTitleStatus } from "@/lib/library/choices";
 export const SWIPE_ANSWERS = ["loved", "meh", "unseen", "dismissed"] as const;
 export type SwipeAnswer = (typeof SWIPE_ANSWERS)[number];
 
+export const MAX_FAVOURITES = 3;
+
 export type UserTitleRow = { titleId: number; status: UserTitleStatus; rating: number | null };
 
 // "unseen" writes nothing: the title stays a candidate for recommendations. Favourites count as
