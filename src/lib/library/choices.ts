@@ -14,7 +14,7 @@ export const RATING_CHOICES = {
 
 export type RatingChoice = keyof typeof RATING_CHOICES;
 
-export const RATING_CHOICE_KEYS = Object.keys(RATING_CHOICES) as RatingChoice[];
+export const RATING_CHOICE_KEYS = Object.keys(RATING_CHOICES) as [RatingChoice, ...RatingChoice[]];
 
 // The inverse, for showing a stored row as a choice. Ratings between rungs (e.g. -2 from an
 // import) round to the nearest choice; rows no choice describes (watching, dismissed,
