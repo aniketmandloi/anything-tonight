@@ -49,5 +49,8 @@ export const titles = pgTable(
   (t) => [
     index("titles_embedding_idx").using("hnsw", t.embedding.op("vector_cosine_ops")),
     index("titles_type_popularity_idx").on(t.type, t.popularity),
+    // Needs the pg_trgm extension (migration 0010).
+    index("titles_title_trgm_idx").using("gin", t.title.op("gin_trgm_ops")),
+    index("titles_original_title_trgm_idx").using("gin", t.originalTitle.op("gin_trgm_ops")),
   ],
 );

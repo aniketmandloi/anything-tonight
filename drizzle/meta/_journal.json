@@ -71,6 +71,20 @@
       "when": 1790326736356,
       "tag": "0009_user-services",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790326806243,
+      "tag": "0010_enable-pg-trgm",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790326806851,
+      "tag": "0011_titles-trigram-indexes",
+      "breakpoints": true
     }
   ]
 }
