@@ -43,6 +43,13 @@
       "when": 1790278803077,
       "tag": "0005_anime-id-map",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790325354528,
+      "tag": "0006_titles-embedding-hash",
+      "breakpoints": true
     }
   ]
 }

@@ -35,6 +35,8 @@ export const titles = pgTable(
     voteCount: integer("vote_count"),
     popularity: real(),
     embedding: vector({ dimensions: EMBEDDING_DIMENSIONS }),
+    // Hash of the model and text the embedding was made from; a mismatch means it's stale.
+    embeddingHash: text("embedding_hash"),
     mood: vector({ dimensions: MOOD_DIMENSIONS }),
     quality: real(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

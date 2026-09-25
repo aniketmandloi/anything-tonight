@@ -20,7 +20,7 @@ export async function findTitleId(
   return row?.id;
 }
 
-const NOT_FIELDS = new Set(["id", "embedding", "mood", "quality", "createdAt", "updatedAt"]);
+const NOT_FIELDS = new Set(["id", "embedding", "embeddingHash", "mood", "quality", "createdAt", "updatedAt"]);
 const fieldColumns = Object.fromEntries(
   Object.entries(getTableColumns(titles)).filter(([key]) => !NOT_FIELDS.has(key)),
 );
