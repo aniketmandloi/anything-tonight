@@ -18,7 +18,8 @@
     "ingest:anime-dedupe": "tsx --env-file=.env scripts/ingest/anime-dedupe.ts",
     "ingest:providers": "tsx --env-file=.env scripts/ingest/providers.ts",
     "enrich:quality": "tsx --env-file=.env scripts/enrich/quality.ts",
-    "enrich:embeddings": "tsx --env-file=.env scripts/enrich/embeddings.ts"
+    "enrich:embeddings": "tsx --env-file=.env scripts/enrich/embeddings.ts",
+    "enrich:mood": "tsx --env-file=.env scripts/enrich/mood.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",

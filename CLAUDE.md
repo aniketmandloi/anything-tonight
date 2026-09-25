@@ -15,6 +15,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm ingest:providers [--limit N]` (refresh watch providers for every title with a TMDB id; regions in `PROVIDER_REGIONS`). Needs the DNS switch.
 - `pnpm enrich:quality` (recompute `titles.quality` for the whole catalog; rerun after ingests).
 - `pnpm enrich:embeddings [--limit N] [--batch N]` (embed titles that are missing an embedding or whose text changed; resumable). Needs `OPENAI_API_KEY`.
+- `pnpm enrich:mood [--limit N] [--batch N] [--concurrency N]` (score titles with no mood yet on `gpt-6-luna`, 10 per request; resumable). Needs `OPENAI_API_KEY`.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
@@ -49,3 +50,6 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - `titles.quality` is an IMDb-style weighted rating computed separately per pool (`type` plus vote source: TMDB when the title has a TMDB id, otherwise AniList), because AniList vote counts are ~100× TMDB's. The prior is the pool's mean rating, with m = the pool's median vote count.
 - Enrichment calls the OpenAI platform API directly with `fetch` (`src/lib/openai/client.ts`, key `OPENAI_API_KEY`), with no AI SDK dependency; the user's credit is on OpenAI. AI Gateway (`AI_GATEWAY_API_KEY`) returns 403 `customer_verification_required` until the Vercel account has a credit card on file. Model ids are OpenAI's bare names (`text-embedding-3-small`, `gpt-6-luna`), not gateway `openai/...` ids.
 - `titles.embedding_hash` is sha256(model + embedding text). A title is re-embedded when the hash differs, so changing `buildEmbeddingText` or `EMBEDDING_MODEL` re-embeds exactly the titles it affects.
+- `titles.mood` holds 8 values in [0, 1], in `MOOD_AXES` order (`src/engine/mood.ts`), where 0 is the axis's low pole. `titles.mood_tags` only uses words from `MOOD_TAGS`. Mood is scored once (rows where `mood is null`), with no staleness hash; reorder or redefine an axis and you have to null the column and re-score.
+- Drizzle's `sql` template expands a JS array into one parameter per element. Pass arrays that should stay a single Postgres array value (e.g. `text[]`) through `sql.param(arr)`.
+- The OpenAI Batch API (50% off) isn't used: at `gpt-6-luna` prices a full score costs well under a cent per 100 titles, and batching several titles per request already shares the prompt.
