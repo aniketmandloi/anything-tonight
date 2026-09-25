@@ -1,7 +1,6 @@
 "use server";
 
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 import { db } from "@/db/client";
@@ -24,5 +23,4 @@ export async function completeOnboarding(
   if (!userId) throw new Error("Not signed in");
   const input = onboardingInput.parse({ answers, favouriteIds });
   await setUserTitles(db, userId, onboardingRows(input.answers, input.favouriteIds), "onboarding");
-  redirect("/tonight");
 }
