@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { buildEmbeddingText, type EmbeddingSource } from "./embedding-text";
 
 // Must produce EMBEDDING_DIMENSIONS-sized vectors (see src/db/schema/titles.ts).
-export const EMBEDDING_MODEL = "openai/text-embedding-3-small";
+export const EMBEDDING_MODEL = "text-embedding-3-small";
 
 export type EmbeddingCandidate = EmbeddingSource & { id: number; embeddingHash: string | null };
 export type EmbeddingJob = { id: number; text: string; hash: string };

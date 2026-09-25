@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { createGatewayClient, GatewayError } from "./client";
+import { createOpenAIClient, OpenAIError } from "./client";
 
 const json = (body: unknown, init: ResponseInit = {}) =>
   new Response(JSON.stringify(body), { status: 200, ...init });
@@ -12,7 +12,7 @@ function setup(...responses: (Response | Error)[]) {
     else fetch.mockResolvedValueOnce(r);
   }
   const sleep = vi.fn(async (ms: number) => void ms);
-  const client = createGatewayClient({ apiKey: "key", fetch, sleep, maxRetries: 2 });
+  const client = createOpenAIClient({ apiKey: "key", fetch, sleep, maxRetries: 2 });
   return { client, fetch, sleep };
 }
 
@@ -25,15 +25,15 @@ const embeddings = {
   usage: { prompt_tokens: 4, total_tokens: 4 },
 };
 
-describe("ai gateway client", () => {
+describe("openai client", () => {
   it("posts inputs to /embeddings and returns vectors in input order", async () => {
     const { client, fetch } = setup(json(embeddings));
-    const vectors = await client.embed("openai/text-embedding-3-small", ["a", "b"]);
+    const vectors = await client.embed("text-embedding-3-small", ["a", "b"]);
 
     const [url, init] = fetch.mock.calls[0];
-    expect(url).toBe("https://ai-gateway.vercel.sh/v1/embeddings");
+    expect(url).toBe("https://api.openai.com/v1/embeddings");
     expect(new Headers(init?.headers).get("authorization")).toBe("Bearer key");
-    expect(JSON.parse(String(init?.body))).toEqual({ model: "openai/text-embedding-3-small", input: ["a", "b"] });
+    expect(JSON.parse(String(init?.body))).toEqual({ model: "text-embedding-3-small", input: ["a", "b"] });
     expect(vectors).toEqual([
       [1, 0],
       [0, 1],
@@ -56,10 +56,10 @@ describe("ai gateway client", () => {
     expect(sleep.mock.calls.map(([ms]) => ms)).toEqual([3000, 2000]);
   });
 
-  it("fails fast on client errors with the gateway's message", async () => {
+  it("fails fast on client errors with OpenAI's message", async () => {
     const { client, fetch } = setup(new Response('{"error":{"type":"authentication_error"}}', { status: 401 }));
     const err = await client.embed("m", ["a"]).catch((e) => e);
-    expect(err).toBeInstanceOf(GatewayError);
+    expect(err).toBeInstanceOf(OpenAIError);
     expect(err.message).toContain("authentication_error");
     expect(fetch).toHaveBeenCalledTimes(1);
   });
@@ -70,7 +70,7 @@ describe("ai gateway client", () => {
       new Response("", { status: 503 }),
       new Response("down", { status: 503 }),
     );
-    await expect(client.embed("m", ["a"])).rejects.toThrow("AI Gateway 503 for /embeddings: down");
+    await expect(client.embed("m", ["a"])).rejects.toThrow("OpenAI 503 for /embeddings: down");
     expect(fetch).toHaveBeenCalledTimes(3);
   });
 });

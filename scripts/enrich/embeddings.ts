@@ -8,15 +8,15 @@ import { sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { EMBEDDING_DIMENSIONS, titles } from "@/db/schema";
 import { EMBEDDING_MODEL, planEmbeddings } from "@/engine/embeddings";
-import { createGatewayClient } from "@/lib/ai-gateway/client";
+import { createOpenAIClient } from "@/lib/openai/client";
 
 const { values } = parseArgs({
   options: { limit: { type: "string" }, batch: { type: "string", default: "100" } },
 });
 
-const apiKey = process.env.AI_GATEWAY_API_KEY;
-if (!apiKey) throw new Error("AI_GATEWAY_API_KEY is not set");
-const gateway = createGatewayClient({ apiKey });
+const apiKey = process.env.OPENAI_API_KEY;
+if (!apiKey) throw new Error("OPENAI_API_KEY is not set");
+const openai = createOpenAIClient({ apiKey });
 
 const batchSize = Number(values.batch);
 const counts = { embedded: 0, failed: 0 };
@@ -40,7 +40,7 @@ try {
   for (let i = 0; i < jobs.length; i += batchSize) {
     const batch = jobs.slice(i, i + batchSize);
     try {
-      const vectors = await gateway.embed(EMBEDDING_MODEL, batch.map((j) => j.text));
+      const vectors = await openai.embed(EMBEDDING_MODEL, batch.map((j) => j.text));
       if (vectors.some((v) => v.length !== EMBEDDING_DIMENSIONS)) {
         throw new Error(`${EMBEDDING_MODEL} returned vectors that aren't ${EMBEDDING_DIMENSIONS}-dimensional`);
       }

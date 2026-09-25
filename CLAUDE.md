@@ -14,7 +14,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - `pnpm ingest:anime-map` (reload the Fribb AniList↔TMDB mapping) · `pnpm ingest:anime-dedupe` (fold existing duplicates; exits 1 if any show still has two titles).
 - `pnpm ingest:providers [--limit N]` (refresh watch providers for every title with a TMDB id; regions in `PROVIDER_REGIONS`). Needs the DNS switch.
 - `pnpm enrich:quality` (recompute `titles.quality` for the whole catalog; rerun after ingests).
-- `pnpm enrich:embeddings [--limit N] [--batch N]` (embed titles that are missing an embedding or whose text changed; resumable). Needs `AI_GATEWAY_API_KEY`.
+- `pnpm enrich:embeddings [--limit N] [--batch N]` (embed titles that are missing an embedding or whose text changed; resumable). Needs `OPENAI_API_KEY`.
 - Never start `pnpm dev` or any server unless the user says so.
 
 ## Workflow
@@ -26,7 +26,7 @@ Next.js 16 (App Router, `src/`) · React 19 · Tailwind 4 + shadcn/ui (base-nova
 - Record new non-obvious decisions and gotchas in the section below, in the commit that introduces them.
 
 ## Environment
-Secrets live in `.env` (gitignored). The user pastes the values in; never ask for secrets in chat and never print them. Current keys: `DATABASE_URL` (Neon, pooled), `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` (dev instance), `TMDB_READ_ACCESS_TOKEN` (v4 bearer token, also works for v3 endpoints). Vercel also needs `CRON_SECRET` (any long random string); Vercel Cron sends it as a bearer token, and `/api/cron/sync` returns 401 without it. `drizzle.config.ts` loads `.env.local` then `.env`; scripts can use `node --env-file=.env`.
+Secrets live in `.env` (gitignored). The user pastes the values in; never ask for secrets in chat and never print them. Current keys: `DATABASE_URL` (Neon, pooled), `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY` (dev instance), `TMDB_READ_ACCESS_TOKEN` (v4 bearer token, also works for v3 endpoints), `OPENAI_API_KEY` (embeddings and mood scoring). Vercel also needs `CRON_SECRET` (any long random string); Vercel Cron sends it as a bearer token, and `/api/cron/sync` returns 401 without it. `drizzle.config.ts` loads `.env.local` then `.env`; scripts can use `node --env-file=.env`.
 
 ## Decisions & gotchas
 - pnpm 12 blocks dependency build scripts; allow them in `pnpm-workspace.yaml` → `allowBuilds` (esbuild is allowed for drizzle-kit).
@@ -38,7 +38,7 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - Schema tables are exported from `src/db/schema/index.ts`; migrations are in `drizzle/`.
 - The user's ISP (Jio) blocks `themoviedb.org` at the DNS level: it resolves to 49.44.79.236 and connections time out. Local runs that call TMDB (ingest scripts) need a temporary switch, which the user wants undone after each use: `networksetup -setdnsservers Wi-Fi 1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001`, then restore with `networksetup -setdnsservers Wi-Fi empty` (the original setting is automatic DNS). Tell the user before switching. Check with `dig +short api.themoviedb.org`. Right after restoring, DNS lookups (including Neon's host) can fail for a few seconds, so wait before the next DB call. Vercel servers aren't affected.
 - TMDB and AniList data are free for non-commercial use only, and need attribution (TMDB + JustWatch for providers). Monetizing requires a TMDB commercial license.
-- `titles.embedding` is `vector(1536)`, sized for `openai/text-embedding-3-small` via AI Gateway; `titles.mood` is `vector(8)`, one per mood axis. Picking a model with a different size needs a migration and a full re-embed.
+- `titles.embedding` is `vector(1536)`, sized for OpenAI `text-embedding-3-small`; `titles.mood` is `vector(8)`, one per mood axis. Picking a model with a different size needs a migration and a full re-embed.
 - AniList documents 90 req/min but the live API returns `X-RateLimit-Limit: 30`; the client paces from the header, so a full anime ingest takes ~2s per 50-title page.
 - The package is `"type": "module"`. Without it tsx compiles `.ts` as CJS, which rejects top-level await and can't see named exports through `export *` barrels like `@/db/schema`. Scripts run with `tsx --env-file=.env` and must `await db.$client.end()` or the pool keeps the process alive.
 - Catalog edges (`title_relations`) point at external ids, not title ids, so ingest order doesn't matter; each ingest replaces its own source's edges on upsert.
@@ -47,5 +47,5 @@ Secrets live in `.env` (gitignored). The user pastes the values in; never ask fo
 - Nightly sync: Vercel Cron (`vercel.json`, 03:00 UTC) hits `/api/cron/sync`, which sends `catalog-sync` queue messages: TMDB `/changes` for titles we already have, plus the 1,000 stalest titles (to refresh providers, which `/changes` doesn't report), plus AniList page 1. The consumer `/api/queues/catalog-sync` sends the next AniList page itself, so only one AniList request runs at a time. `/api/cron` and `/api/queues` are public in `src/proxy.ts`. Queues need a linked Vercel project (OIDC); locally, `send()` needs `vercel link` + `vercel env pull`.
 - Enrichment scripts write `quality`/`embedding`/`mood` with raw SQL `update`s so `titles.updated_at` doesn't change: nightly sync refreshes the titles with the oldest `updated_at`. Drizzle's `.update()` would bump it through `$onUpdate`.
 - `titles.quality` is an IMDb-style weighted rating computed separately per pool (`type` plus vote source: TMDB when the title has a TMDB id, otherwise AniList), because AniList vote counts are ~100× TMDB's. The prior is the pool's mean rating, with m = the pool's median vote count.
-- AI Gateway is called through its OpenAI-compatible REST API with `fetch` (`src/lib/ai-gateway/client.ts`), with no AI SDK dependency. The gateway returns 403 `customer_verification_required` until the Vercel account has a credit card on file.
+- Enrichment calls the OpenAI platform API directly with `fetch` (`src/lib/openai/client.ts`, key `OPENAI_API_KEY`), with no AI SDK dependency; the user's credit is on OpenAI. AI Gateway (`AI_GATEWAY_API_KEY`) returns 403 `customer_verification_required` until the Vercel account has a credit card on file. Model ids are OpenAI's bare names (`text-embedding-3-small`, `gpt-6-luna`), not gateway `openai/...` ids.
 - `titles.embedding_hash` is sha256(model + embedding text). A title is re-embedded when the hash differs, so changing `buildEmbeddingText` or `EMBEDDING_MODEL` re-embeds exactly the titles it affects.
