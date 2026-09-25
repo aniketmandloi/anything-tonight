@@ -2,7 +2,7 @@
 
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { SearchIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Ref } from "react";
 
 import { TitlePoster } from "@/components/title-poster";
 import { TitleTypeBadge } from "@/components/title-type-badge";
@@ -17,9 +17,11 @@ type Fetched = { query: string; results: SearchResult[]; failed: boolean };
 export function TitleSearch({
   onSelect,
   autoFocus,
+  inputRef,
 }: {
   onSelect: (title: SearchResult) => void;
   autoFocus?: boolean;
+  inputRef?: Ref<HTMLInputElement>;
 }) {
   const [input, setInput] = useState("");
   const query = useDebouncedValue(input.trim(), DEBOUNCE_MS);
@@ -66,6 +68,7 @@ export function TitleSearch({
       <Autocomplete.InputGroup className="flex items-center gap-2 border-b px-3">
         <SearchIcon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
         <Autocomplete.Input
+          ref={inputRef}
           autoFocus={autoFocus}
           aria-label="Search titles"
           placeholder="Search titles…"
